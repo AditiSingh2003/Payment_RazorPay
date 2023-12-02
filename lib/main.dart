@@ -12,12 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'RazorPay Integration',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'RazorPay Integration in Flutter'),
     );
   }
 }
@@ -63,7 +64,6 @@ void _handleExternalWallet(ExternalWalletResponse response) {
         title: Text(widget.title),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -75,11 +75,14 @@ void _handleExternalWallet(ExternalWalletResponse response) {
               ),
             ),
           ),
-          ElevatedButton(
-            child: Text('Pay Now'),
-            onPressed: () {
+          SizedBox(height: 20),
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(horizontal: 16.0),
+            child: ElevatedButton(
+              onPressed: () {
                 var options = {
-                'key': "rzp_test_QrjoZd5gG0uVkb",
+                'key': "<Your API>",
                 'amount': (int.parse(amountController.text)*100).toString(),
                 'name': 'Aditi Singh',
                 'description': 'testing paisa',
@@ -91,6 +94,18 @@ void _handleExternalWallet(ExternalWalletResponse response) {
               };
               _razorpay.open(options);
             },
+              style: ElevatedButton.styleFrom(
+                primary: HSLColor.fromAHSL(1.0, 218.0, 0.89, 0.51).toColor(), // Set the green shade
+                padding: EdgeInsets.all(16.0), // Adjust padding as needed
+              ),
+              child: Text(
+                'Pay Now',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white
+                ),
+              ),
+            ),
           ),
         ]
       ),
